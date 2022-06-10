@@ -1,0 +1,49 @@
+<div class="container-table">
+  <div class="heading-table">Danh sách Customer</div>
+  <div class="block-search">
+    <input class="input-search" [(ngModel)]="textsearch" />
+    <button class="button-action" (click)="handleSearch()">Search</button>
+    <button type="button" class="button-action button-add" (click)="show()">
+      Add New Customer
+    </button>
+  </div>
+  <br />
+  <table>
+    <tr>
+      <th>Họ và Tên</th>
+      <th>Số Điện Thoại</th>
+      <th>Địa Chỉ</th>
+      <th>Sửa</th>
+      <th>Xóa</th>
+    </tr>
+    <tr class="not-data" *ngIf="dataCustomer && dataCustomer.length === 0">
+      <td colSpan="100%">
+        <p>Data not found</p>
+      </td>
+    </tr>
+    <tr *ngFor="let item of dataCustomer">
+      <td>{{ item.username }}</td>
+      <td>{{ item.phone }}</td>
+      <td>{{ item.address }}</td>
+      <td>
+        <button
+          type="button"
+          class="button-action"
+          (click)="editCustomer(item)"
+        >
+          Sửa
+        </button>
+      </td>
+      <td>
+        <button
+          type="button"
+          class="button-action"
+          (click)="deleteCustomer(item)"
+        >
+          Xóa
+        </button>
+      </td>
+    </tr>
+  </table>
+  <p-confirmDialog [style]="{ width: '30vw' }"></p-confirmDialog>
+</div>

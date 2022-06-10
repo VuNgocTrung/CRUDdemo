@@ -1,0 +1,91 @@
+<div class="main">
+  <form class="form" #signInForm="ngForm">
+    <h3 class="heading">{{titleCustomer}}</h3>
+    <div class="form-group">
+      <div class="form-label">
+        <span>Họ và Tên</span>
+        <span class="text-danger"> *</span>
+      </div>
+      <input
+        type="'text'"
+        [class]="
+          username.touched && !username.valid
+            ? 'form-control error-input'
+            : 'form-control'
+        "
+        minlength="6"
+        maxlength="32"
+        [pattern]="usernamePattern"
+        #username="ngModel"
+        required
+        placeholder="Họ và Tên"
+        [(ngModel)]="userNameDefault"
+        name="username"
+      />
+      <div *ngIf="username.touched && !username.valid" class="text-danger">
+        <span *ngIf="username.errors.required">This field is required !</span>
+        <span *ngIf="username.errors.minlength || username.errors.maxlength"
+          >Length from 6 to 32 characters.</span
+        >
+        <span
+          *ngIf="
+            !(username.errors.minlength || username.errors.maxlength) &&
+            username.errors.pattern
+          "
+          >This field is invalid format. !</span
+        >
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="form-label">Số Điện Thoại</div>
+      <input
+        type="'text'"
+        class="form-control"
+        placeholder="Ngày Sinh"
+        [class]="
+          phone.touched && !phone.valid
+            ? 'form-control error-input'
+            : 'form-control'
+        "
+        [(ngModel)]="phoneDefault"
+        [pattern]="phonePattern"
+        name="phone"
+        #phone="ngModel"
+      />
+      <div *ngIf="phone.touched && !phone.valid" class="text-danger">
+        <span *ngIf="phone.errors.pattern">This field is invalid.</span>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="form-label">Địa Chỉ</div>
+      <input
+        type="'text'"
+        class="form-control"
+        placeholder="Địa Chỉ"
+        [(ngModel)]="addessDefault"
+        name="address"
+      />
+    </div>
+    <div class="row-control row-actions">
+      <button
+        color="primary"
+        type="submit"
+        class="form-submit"
+        (click)="username.valid && addNewCustomer(signInForm)"
+        *ngIf="!checkButton"
+      >
+        Thêm Mới
+      </button>
+      <button
+        color="primary"
+        type="button"
+        class="form-submit"
+        (click)="updateCustomerForm(signInForm)"
+        *ngIf="checkButton"
+      >
+        Cập Nhật
+      </button>
+    </div>
+    <!-- <pre>{{ signInForm.value | json }}</pre> -->
+  </form>
+</div>
